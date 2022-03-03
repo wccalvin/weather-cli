@@ -1,0 +1,23 @@
+{
+  "name": "weather-cli",
+  "version": "1.0.0",
+  "description": "A simple script to provide weather for a location based on zipcode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wccalvin/weather-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wccalvin/weather-cli/issues"
+  },
+  "homepage": "https://github.com/wccalvin/weather-cli#readme",
+  "dependencies": {
+    "commander": "^9.0.0"
+  }
+}
