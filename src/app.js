@@ -8,8 +8,11 @@ const app = new Command();
 const { version } = require("../package.json");
 
 app
-  .name("weather")
   .description("Show weather based on zip code.")
-  .version(version);
+  .version(version)
+  .argument("[zip]", "zip code for the location", "02864")
+  .action((zip) => {
+    console.log(`zip code: ${zip}`);
+  });
 
 app.parse();
