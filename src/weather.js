@@ -18,16 +18,22 @@ const getWeatherData = (location) => {
           try {
             const weatherData = JSON.parse(data);
             const summary = weatherData.weather[0].main;
+            const summaryDesc = weatherData.weather[0].description;
             const temp = weatherData.main.temp;
             const feelsLike = weatherData.main.feels_like;
             const minTemp = weatherData.main.temp_min;
             const maxTemp = weatherData.main.temp_max;
             const humidity = weatherData.main.humidity;
-            console.log(`${summary} ()`);
+            const wind = weatherData.wind.speed;
+            const country = weatherData.sys.country;
+            const sunrise = weatherData.sys.sunrise;
+            const sunset = weatherData.sys.sunset;
+            console.log(`Summary -> ${summary} (${summaryDesc})`);
             console.log(
-              `${location} (): ${temp} (feels: ${feelsLike}) deg F (min: ${minTemp} | max: ${maxTemp})`
+              `${location} (${country}): ${temp} (feels: ${feelsLike}) deg F ` +
+                `(min: ${minTemp} | max: ${maxTemp})`
             );
-            console.log(`Wind: | Humidity: ${humidity}`);
+            console.log(`Wind: ${wind} mph | Humidity: ${humidity}`);
           } catch (e) {
             console.error(e.message);
           }
