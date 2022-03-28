@@ -23,9 +23,9 @@ const getWeatherData = (location) => {
             const minTemp = weatherData.main.temp_min;
             const maxTemp = weatherData.main.temp_max;
             const humidity = weatherData.main.humidity;
-            console.log(`Summary: ${summary}`);
+            console.log(`${summary} ()`);
             console.log(
-              `${location} (): ${temp} (${feelsLike}) deg F (min: ${minTemp} | max: ${maxTemp})`
+              `${location} (): ${temp} (feels: ${feelsLike}) deg F (min: ${minTemp} | max: ${maxTemp})`
             );
             console.log(`Wind: | Humidity: ${humidity}`);
           } catch (e) {
