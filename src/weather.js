@@ -2,6 +2,22 @@ const https = require("https");
 const http = require("http");
 const api = require("./api.json");
 
+const formatWithLeadingZeros = (dt) => ("0" + dt).slice(-2);
+
+const getConvertedDateTime = (timeStamp, timeZone, fullForm = true) => {
+  const convertedDt = new Date(timeStamp * 1000 + timeZone * 1000);
+  const month = formatWithLeadingZeros(convertedDt.getMonth() + 1);
+  const year = convertedDt.getFullYear();
+  const date = formatWithLeadingZeros(convertedDt.getDate());
+  const hour = formatWithLeadingZeros(convertedDt.getUTCHours());
+  const mins = formatWithLeadingZeros(convertedDt.getMinutes());
+  const secs = formatWithLeadingZeros(convertedDt.getSeconds());
+  if (fullForm) {
+    return `${year}-${month}-${date} ${hour}:${mins}:${secs}`;
+  }
+  return `${hour}:${mins}:${secs}`;
+};
+
 const getWeatherData = (location) => {
   const apiKey = api.key;
   const weatherUrl = "https://api.openweathermap.org/data/2.5/weather";
@@ -28,12 +44,23 @@ const getWeatherData = (location) => {
             const country = weatherData.sys.country;
             const sunrise = weatherData.sys.sunrise;
             const sunset = weatherData.sys.sunset;
-            console.log(`Summary -> ${summary} (${summaryDesc})`);
+            const currentDateTime = weatherData.dt;
+            const timeZone = weatherData.timezone;
+            console.log(
+              `Summary: ${summary} (${summaryDesc}) | Date: ${getConvertedDateTime(
+                currentDateTime,
+                timeZone
+              )}`
+            );
             console.log(
               `${location} (${country}): ${temp} (feels: ${feelsLike}) deg F ` +
                 `(min: ${minTemp} | max: ${maxTemp})`
             );
             console.log(`Wind: ${wind} mph | Humidity: ${humidity}`);
+            console.log(
+              `Sunrise: ${getConvertedDateTime(sunrise, timeZone, false)} | ` +
+                `Sunset: ${getConvertedDateTime(sunset, timeZone, false)}`
+            );
           } catch (e) {
             console.error(e.message);
           }
